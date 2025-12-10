@@ -1,6 +1,7 @@
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Calendar, MapPin, Users, Trophy, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Hackathon } from "@/types/hackathon";
@@ -8,6 +9,36 @@ import type { Hackathon } from "@/types/hackathon";
 interface HackathonCardProps {
   hackathon: Partial<Hackathon>;
   variant?: "default" | "featured" | "compact";
+}
+
+export function HackathonCardSkeleton() {
+  return (
+    <Card className="overflow-hidden h-full flex flex-col">
+      <div className="relative h-48 bg-muted overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/10 to-transparent animate-shimmer bg-[length:200%_100%]" />
+      </div>
+      <CardHeader className="pb-2 space-y-2">
+        <Skeleton className="h-6 w-3/4" />
+        <Skeleton className="h-4 w-full" />
+        <Skeleton className="h-4 w-2/3" />
+      </CardHeader>
+      <CardContent className="space-y-4 flex-1">
+        <div className="flex gap-3">
+          <Skeleton className="h-4 w-20" />
+          <Skeleton className="h-4 w-20" />
+          <Skeleton className="h-4 w-20" />
+        </div>
+        <div className="flex gap-2">
+          <Skeleton className="h-5 w-16" />
+          <Skeleton className="h-5 w-16" />
+          <Skeleton className="h-5 w-16" />
+        </div>
+      </CardContent>
+      <CardFooter>
+        <Skeleton className="h-10 w-full" />
+      </CardFooter>
+    </Card>
+  );
 }
 
 export function HackathonCard({ hackathon, variant = "default" }: HackathonCardProps) {
@@ -87,7 +118,7 @@ export function HackathonCard({ hackathon, variant = "default" }: HackathonCardP
     <Card
       variant={variant === "featured" ? "neon" : "interactive"}
       className={cn(
-        "overflow-hidden group",
+        "overflow-hidden group h-full flex flex-col",
         variant === "featured" && "ring-1 ring-primary/50"
       )}
     >
@@ -127,7 +158,7 @@ export function HackathonCard({ hackathon, variant = "default" }: HackathonCardP
         <p className="text-sm text-muted-foreground line-clamp-2">{shortDescription}</p>
       </CardHeader>
 
-      <CardContent className="space-y-3">
+      <CardContent className="space-y-3 flex-1">
         {/* Meta Info */}
         <div className="flex flex-wrap gap-3 text-sm text-muted-foreground">
           <span className="flex items-center gap-1.5">

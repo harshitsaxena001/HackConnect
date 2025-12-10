@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { HackathonCard } from "@/components/features/HackathonCard";
+import { HackathonCard, HackathonCardSkeleton } from "@/components/features/HackathonCard";
 import {
   Zap,
   Users,
@@ -146,18 +146,31 @@ export default function Index() {
           </div>
 
           {/* Stats */}
-          <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+          <div className="mt-24 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
             {stats.map((stat, index) => (
-              <Card
+              <div
                 key={stat.label}
-                variant="glass"
-                className="p-6 text-center animate-fade-in"
+                className="group relative animate-fade-in"
                 style={{ animationDelay: `${0.4 + index * 0.1}s` }}
               >
-                <stat.icon className="h-6 w-6 mx-auto mb-3 text-primary" />
-                <p className="text-2xl sm:text-3xl font-bold neon-text">{stat.value}</p>
-                <p className="text-sm text-muted-foreground">{stat.label}</p>
-              </Card>
+                <div className="absolute -inset-px bg-gradient-to-b from-primary/40 to-transparent rounded-xl blur-sm opacity-0 group-hover:opacity-100 transition duration-500" />
+                <Card
+                  variant="glass"
+                  className="relative h-full p-6 flex flex-col items-center justify-center border-primary/10 bg-background/40 backdrop-blur-md transition-all duration-300 group-hover:translate-y-[-2px] group-hover:bg-background/60"
+                >
+                  <div className="mb-4 p-3 rounded-full bg-primary/10 text-primary ring-1 ring-primary/20 transition-all duration-300 group-hover:scale-110 group-hover:ring-primary/50 group-hover:bg-primary/20">
+                    <stat.icon className="h-6 w-6" />
+                  </div>
+                  <div className="space-y-1 text-center">
+                    <p className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground group-hover:text-primary transition-colors duration-300">
+                      {stat.value}
+                    </p>
+                    <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest">
+                      {stat.label}
+                    </p>
+                  </div>
+                </Card>
+              </div>
             ))}
           </div>
         </div>
@@ -183,7 +196,7 @@ export default function Index() {
             {featuredHackathons.map((hackathon, index) => (
               <div
                 key={hackathon.id}
-                className="animate-fade-in"
+                className="animate-fade-in h-full"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <HackathonCard
