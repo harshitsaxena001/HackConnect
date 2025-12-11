@@ -13,7 +13,7 @@ export function ThemeToggle() {
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
       className={cn(
         "relative overflow-hidden transition-all duration-300",
-        "hover:bg-primary/10 hover:scale-105",
+        "hover:bg-primary/10 hover:text-green-500 hover:scale-105",
         "active:scale-95"
       )}
     >
