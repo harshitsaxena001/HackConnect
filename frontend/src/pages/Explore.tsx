@@ -152,19 +152,14 @@ export default function Explore() {
   });
 
   return (
-    <div className="min-h-screen bg-background">
-      <Navbar />
-      <Sidebar />
-
-      <main className="pl-64 pt-16">
-        <div className="p-8">
-          {/* Header */}
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold mb-2">Explore Hackathons</h1>
-            <p className="text-muted-foreground">
-              Discover {hackathons.length}+ hackathons from around the world
-            </p>
-          </div>
+    <div className="p-8">
+      {/* Header */}
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold mb-2">Explore Hackathons</h1>
+        <p className="text-muted-foreground">
+          Discover {hackathons.length}+ hackathons from around the world
+        </p>
+      </div>
 
           {/* Search & Filters */}
           <div className="space-y-4 mb-8">
@@ -392,7 +387,5 @@ export default function Explore() {
             </Card>
           )}
         </div>
-      </main>
-    </div>
   );
 }
