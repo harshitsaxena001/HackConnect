@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -7,9 +7,14 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Navbar } from "@/components/layout/Navbar";
 import { Zap, Github, Mail, ArrowRight, Eye, EyeOff, User } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
+import { useToast } from "@/hooks/use-toast";
 
 export default function Signup() {
   const [showPassword, setShowPassword] = useState(false);
+  const { signup, isLoading, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+  const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: "",
     username: "",
@@ -18,9 +23,43 @@ export default function Signup() {
     agreeToTerms: false,
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/dashboard");
+    }
+  }, [isAuthenticated, navigate]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Signup:", formData);
+    if (!formData.agreeToTerms) {
+      toast({
+        title: "Error",
+        description: "You must agree to the terms and conditions",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const result = await signup({
+      name: formData.name,
+      email: formData.email,
+      password: formData.password,
+      username: formData.username,
+    });
+
+    if (result.success) {
+      toast({
+        title: "Account created",
+        description: "Welcome to HackConnect!",
+      });
+      navigate("/dashboard");
+    } else {
+      toast({
+        title: "Signup failed",
+        description: result.error,
+        variant: "destructive",
+      });
+    }
   };
 
   const updateField = (field: string, value: string | boolean) => {

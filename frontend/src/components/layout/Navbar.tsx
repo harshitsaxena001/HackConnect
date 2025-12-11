@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { NotificationPanel } from "@/components/features/NotificationPanel";
@@ -8,16 +8,24 @@ import {
   X, 
   Search,
   User,
-  Settings
+  Settings,
+  LogOut
 } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/hooks/useAuth";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { isAuthenticated, logout } = useAuth();
   const isAuthPage = location.pathname.includes('/login') || location.pathname.includes('/signup');
-  const isAuthenticated = false; // This would come from auth context
+
+  const handleLogout = async () => {
+    await logout();
+    navigate("/login");
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur-xl">
@@ -54,6 +62,9 @@ export function Navbar() {
                     <User className="h-5 w-5" />
                   </Button>
                 </Link>
+                <Button variant="ghost" size="icon" className="interactive-scale" onClick={handleLogout}>
+                  <LogOut className="h-5 w-5" />
+                </Button>
               </>
             ) : !isAuthPage && (
               <>
@@ -110,6 +121,21 @@ export function Navbar() {
                       Get Started
                     </Button>
                   </Link>
+                </div>
+              )}
+              {isAuthenticated && (
+                <div className="flex flex-col gap-2 pt-4 border-t border-border/50">
+                  <Button 
+                    variant="ghost" 
+                    className="w-full justify-start interactive-scale text-destructive hover:text-destructive hover:bg-destructive/10"
+                    onClick={() => {
+                      handleLogout();
+                      setIsOpen(false);
+                    }}
+                  >
+                    <LogOut className="h-4 w-4 mr-2" />
+                    Log out
+                  </Button>
                 </div>
               )}
             </div>
