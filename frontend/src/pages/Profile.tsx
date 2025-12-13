@@ -7,6 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { HackathonCard } from "@/components/features/HackathonCard";
 import { Edit, Share2, Settings } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
+import { EditProfileDialog } from "@/components/features/EditProfileDialog";
 
 /*
 const mockUser = {
@@ -92,10 +93,7 @@ export default function Profile() {
           <Share2 className="h-4 w-4" />
           Share Profile
         </Button>
-        <Button variant="outline" className="gap-2">
-          <Edit className="h-4 w-4" />
-          Edit Profile
-        </Button>
+        <EditProfileDialog user={user} />
         <Button variant="ghost" size="icon">
           <Settings className="h-5 w-5" />
         </Button>

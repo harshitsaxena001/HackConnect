@@ -8,7 +8,9 @@ class UserBase(BaseModel):
     bio: Optional[str] = None
     avatar_url: Optional[str] = None
     github_url: Optional[str] = None
+    portfolio_url: Optional[str] = None # Added portfolio_url
     skills: List[str] = []    # 'skills' column
+    tech_stack: List[str] = [] # 'tech_stack' column
     xp: int = 0               # 'xp' column
     reputation_score: float = 0.0
 
@@ -27,10 +29,12 @@ class UserLoginSync(BaseModel):
 
 # --- 4. UPDATE PROFILE INPUT ---
 class UserUpdate(BaseModel):
-    user_id: str
+    name: Optional[str] = None
     bio: Optional[str] = None
     skills: Optional[List[str]] = None
+    tech_stack: Optional[List[str]] = None
     github_url: Optional[str] = None
+    portfolio_url: Optional[str] = None
     avatar_url: Optional[str] = None
 
 # --- 5. CHANGE PASSWORD INPUT ---

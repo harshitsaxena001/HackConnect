@@ -8,7 +8,6 @@ export interface User {
   skills: string[];
   techStack: string[];
   githubUrl?: string;
-  linkedinUrl?: string;
   portfolioUrl?: string;
   xp: number;
   level: number;

@@ -4,7 +4,6 @@ import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Github,
-  Linkedin,
   Globe,
   MapPin,
   Trophy,
@@ -29,7 +28,6 @@ export function UserProfile({ user, skillRadar, variant = "card" }: UserProfileP
     skills,
     techStack,
     githubUrl,
-    linkedinUrl,
     portfolioUrl,
     xp,
     level,
@@ -91,19 +89,26 @@ export function UserProfile({ user, skillRadar, variant = "card" }: UserProfileP
             </div>
           </div>
 
+          {/* Tech Stack */}
+          {techStack && techStack.length > 0 && (
+            <div>
+              <p className="text-xs font-medium text-muted-foreground mb-2">TECH STACK</p>
+              <div className="flex flex-wrap gap-1.5">
+                {techStack.slice(0, 4).map((tech) => (
+                  <Badge key={tech} variant="outline" className="text-xs">
+                    {tech}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Social Links */}
           <div className="flex justify-center gap-2">
             {githubUrl && (
               <Button variant="ghost" size="icon" asChild>
                 <a href={githubUrl} target="_blank" rel="noopener noreferrer">
                   <Github className="h-4 w-4" />
-                </a>
-              </Button>
-            )}
-            {linkedinUrl && (
-              <Button variant="ghost" size="icon" asChild>
-                <a href={linkedinUrl} target="_blank" rel="noopener noreferrer">
-                  <Linkedin className="h-4 w-4" />
                 </a>
               </Button>
             )}
@@ -153,13 +158,6 @@ export function UserProfile({ user, skillRadar, variant = "card" }: UserProfileP
                 <Button variant="outline" size="icon" asChild>
                   <a href={githubUrl} target="_blank" rel="noopener noreferrer">
                     <Github className="h-4 w-4" />
-                  </a>
-                </Button>
-              )}
-              {linkedinUrl && (
-                <Button variant="outline" size="icon" asChild>
-                  <a href={linkedinUrl} target="_blank" rel="noopener noreferrer">
-                    <Linkedin className="h-4 w-4" />
                   </a>
                 </Button>
               )}

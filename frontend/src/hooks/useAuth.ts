@@ -41,9 +41,8 @@ export function useAuth() {
           avatar: data.avatar_url,
           bio: data.bio,
           skills: data.skills || [],
-          techStack: data.techStack || [], // Backend might not return this yet if not in model, but let's assume it does or defaults
+          techStack: data.tech_stack || [], // Map from backend tech_stack
           githubUrl: data.github_url,
-          linkedinUrl: data.linkedin_url,
           portfolioUrl: data.portfolio_url,
           xp: data.xp || 0,
           level: Math.floor((data.xp || 0) / 1000) + 1,
@@ -158,11 +157,43 @@ export function useAuth() {
     }
   }, [login]);
 
+  const updateProfile = useCallback(async (data: Partial<User>) => {
+    if (!state.user) return { success: false, error: "No user logged in" };
+    
+    try {
+      const response = await fetch(`${API_URL}/users/${state.user.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            name: data.name,
+            bio: data.bio,
+            skills: data.skills,
+            tech_stack: data.techStack, // Send as tech_stack
+            github_url: data.githubUrl,
+            portfolio_url: data.portfolioUrl,
+            avatar_url: data.avatar
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to update profile");
+      }
+
+      await checkAuth(); // Refresh local state
+      return { success: true };
+    } catch (error: any) {
+      return { success: false, error: error.message };
+    }
+  }, [state.user, checkAuth]);
+
   return {
     ...state,
     login,
     logout,
     signup,
-    checkAuth
+    checkAuth,
+    updateProfile
   };
 }
