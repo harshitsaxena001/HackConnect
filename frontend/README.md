@@ -1,74 +1,81 @@
-# HackConnect Frontend
+# HackConnect Frontend 🚀
 
-Next.js 15 application with TypeScript, Shadcn/ui, and Appwrite integration.
+This is the frontend client for **HackConnect**, built as a Single Page Application (SPA) using **React** and **Vite**. It serves as the "LinkedIn for Builders," facilitating hackathon discovery, team formation, and professional portfolio building.
 
-## 📁 Structure
+## 🛠 Tech Stack
+
+*   **Framework**: React 18 + Vite
+*   **Language**: TypeScript
+*   **Styling**: Tailwind CSS
+*   **UI Components**: Shadcn/UI (Radix Primitives)
+*   **Icons**: Lucide React
+*   **Routing**: React Router DOM
+*   **Backend/Auth**: Appwrite (Client-side integration)
+*   **State Management**: React Hooks + TanStack Query
+
+## 📂 Project Structure
 
 ```
 frontend/
 ├── src/
-│   ├── app/                    # Next.js 15 App Router
-│   │   ├── (auth)/            # Auth-related routes
-│   │   ├── (main)/            # Main app routes
-│   │   ├── layout.tsx         # Root layout
-│   │   └── page.tsx           # Home page
 │   ├── components/
-│   │   ├── ui/                # Shadcn/ui components
-│   │   ├── layout/            # Layout components (Navbar, Footer)
-│   │   └── features/          # Feature-specific components
-│   ├── lib/
-│   │   ├── appwrite/          # Appwrite client configuration
-│   │   └── utils.ts           # Utility functions
-│   ├── hooks/                 # Custom React hooks
-│   ├── types/                 # TypeScript type definitions
-│   ├── styles/                # Global styles
-│   └── utils/                 # Helper functions
-├── public/
-│   ├── images/                # Static images
-│   └── icons/                 # Icons and logos
-├── .env.local                 # Environment variables (create from .env.example)
-├── next.config.js             # Next.js configuration
-├── tailwind.config.ts         # Tailwind CSS configuration
-├── tsconfig.json              # TypeScript configuration
-└── package.json               # Dependencies
+│   │   ├── features/       # Business-specific components (HackathonCard, TeamCard)
+│   │   ├── layout/         # Global layout (Navbar, Footer, Sidebar)
+│   │   └── ui/             # Reusable UI atoms (Buttons, Inputs, Cards)
+│   ├── hooks/              # Custom hooks (useAuth, useTheme)
+│   ├── lib/                # Configuration & Utilities (appwrite.ts, utils.ts)
+│   ├── pages/              # Route views (Index, Explore, Dashboard)
+│   ├── types/              # TypeScript interfaces (User, Hackathon)
+│   └── utils/              # Helper functions (date formatting, validation)
+├── .env                    # Environment variables (VITE_ prefixes)
+└── package.json
 ```
 
-## 🎯 Responsibilities
+## ⚡️ Setup & Installation
 
-**Navdeep (Frontend Lead):**
-- Implement UI screens (Login, Dashboard, Explore)
-- Integrate Appwrite Client SDK for Realtime Chat
-- Build responsive layouts with Shadcn/ui components
-- Handle client-side state management
+1.  **Install Dependencies**
+    ```bash
+    npm install
+    ```
 
-## 🚀 Getting Started
+2.  **Environment Configuration**
+    Ensure your .env file is set up with your Appwrite credentials:
+    ```env
+    VITE_APPWRITE_ENDPOINT=https://cloud.appwrite.io/v1
+    VITE_APPWRITE_PROJECT_ID=your_project_id
+    VITE_APPWRITE_DATABASE_ID=your_database_id
+    VITE_COLLECTION_USERS=users
+    VITE_COLLECTION_HACKATHONS=hackathons
+    # ... other collections
+    ```
 
-```bash
-# Install dependencies
-npm install
+3.  **Run Development Server**
+    ```bash
+    npm run dev
+    ```
 
-# Run development server
-npm run dev
+## 🔄 Features
 
-# Build for production
-npm run build
+### 1. Authentication
+*   **Status**: Implemented in `src/hooks/useAuth.ts`.
+*   **Features**: Signup, Login, Logout, and User Profile fetching from the `users` collection.
 
-# Start production server
-npm start
-```
+### 2. Hackathon Discovery
+*   **Status**: Implemented in `src/pages/Index.tsx` and `src/pages/Explore.tsx`.
+*   **Features**: Real-time fetching from Appwrite, filtering, and search.
 
-## 🔌 Appwrite Integration
+### 3. User Dashboard
+*   **Status**: Implemented in `src/pages/Dashboard.tsx`.
+*   **Features**: Personalized stats, upcoming hackathons, and team activity.
 
-- Client SDK setup in `src/lib/appwrite/`
-- Realtime subscriptions for chat
-- Direct database queries for simple reads
-- Authentication flows
+### 4. Team Management
+*   **Status**: Implemented in `src/pages/TeamsLobby.tsx`.
+*   **Features**: Create teams, join requests, and member management.
 
-## 📝 Key Pages
+## 📝 Data Models (Appwrite)
 
-- `/` - Landing page with hero section
-- `/explore` - Browse hackathons
-- `/dashboard` - User dashboard
-- `/teams` - Team management
-- `/chat` - Realtime messaging
-- `/profile` - User profile
+Ensure your Appwrite Database has the following collections matching `src/types/`:
+
+*   **Users**: `username`, `email`, `avatar_url`, `bio`, `skills` (array), `xp`.
+*   **Hackathons**: `title`, `description`, `start_date`, `prize_pool`, `tags` (array), `cover_image`.
+*   **Teams**: `name`, `hackathon_id`, `members` (array of user_ids), `looking_for` (array).

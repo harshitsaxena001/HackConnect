@@ -6,7 +6,7 @@ This guide details how to configure the Appwrite project to support the HackConn
 
 1.  Log in to [Appwrite Cloud](https://cloud.appwrite.io/).
 2.  Create a new project named **"HackConnect"**.
-3.  Copy the **Project ID** and update `NEXT_PUBLIC_APPWRITE_PROJECT_ID` (frontend) and `APPWRITE_PROJECT_ID` (backend).
+3.  Copy the **Project ID** and update `VITE_APPWRITE_PROJECT_ID` (frontend) and `APPWRITE_PROJECT_ID` (backend).
 
 ## 2. Authentication
 

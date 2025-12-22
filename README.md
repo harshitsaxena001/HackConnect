@@ -1,6 +1,6 @@
 # HackConnect
 
-A modern hackathon team-finding platform powered by Appwrite, Next.js 15, and FastAPI.
+A modern hackathon team-finding platform powered by Appwrite, React (Vite), and FastAPI.
 
 ## 🏗️ Monorepo Structure
 
@@ -8,17 +8,16 @@ This is a monorepo containing both frontend and backend services:
 
 ```
 HackConnect/
-├── frontend/              # Next.js 15 + TypeScript + Shadcn/ui
+├── frontend/              # React + Vite + TypeScript + Shadcn/ui
 ├── backend/               # FastAPI + Python + Appwrite SDK
 ├── docs/                  # Project documentation
 ├── scripts/               # Utility scripts
-├── .github/               # CI/CD workflows
 └── prd.md                 # Product Requirements Document
 ```
 
 ## 🚀 Quick Start
 
-### Frontend (Next.js)
+### Frontend (React + Vite)
 ```bash
 cd frontend
 npm install
@@ -51,7 +50,7 @@ uvicorn app.main:app --reload
 
 ## 🛠️ Tech Stack
 
-- **Frontend**: Next.js 15, TypeScript, Shadcn/ui, Tailwind CSS
+- **Frontend**: React 18, Vite, TypeScript, Shadcn/ui, Tailwind CSS
 - **Backend**: FastAPI, Python, Appwrite Python SDK
 - **BaaS**: Appwrite Cloud (Auth, Database, Storage, Realtime)
 - **AI**: Gemini API
